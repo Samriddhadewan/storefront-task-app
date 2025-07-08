@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Storefront - A Task
 
-## Getting Started
+This project was built as the final task assigned by DevPoojit Sir during the last round of hiring.
 
-First, run the development server:
+It is a small, responsive storefront built with **Next.js** that fetches product data from the [DummyJSON Products API](https://dummyjson.com/products).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Preview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Storefront Screenshot](https://i.ibb.co/tPhHDR00/Create-Next-App-1.png)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+- Browse a list of products with images, names, and prices  
+- View detailed product information on a separate page  
+- Add products to a shopping cart  
+- Cart contents persist in the browser using localStorage, so they remain after page refresh  
+- Clean code with a structured commit history  
+- Deployed live on [Vercel](https://storefront-task-app.vercel.app/) for easy access  
 
-To learn more about Next.js, take a look at the following resources:
+---
+## Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/Samriddhadewan/storefront-task-app.git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Navigate to the project directory**  
+   ```bash
+   cd storefront-task-app
 
-## Deploy on Vercel
+3. **Install dependencies**  
+   ```bash
+   npm install
+4. **Start the development server**  
+   ```bash
+   npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Use of AI in This Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+During the development of this storefront, I leveraged AI tools to:
+
+- **Generate project structure and boilerplate code** for faster setup.  
+- **ProductCard** component was initially generated with the help of AI tools. After that, I customized and refined the code to fit the specific design and functionality requirements of this project.
+- The **Product Detail Page** component was also created with AI assistance to scaffold the basic structure. I then enhanced it by implementing detailed product information display, handling dynamic routing, and integrating it with the cart functionality to allow adding items directly from this page.  
+- The **localStorage functionality** for persisting the cart was initially generated with AI assistance. I adapted and enhanced the code to efficiently save, retrieve, and update cart data in the browser, ensuring the cart state persists across page reloads and browser sessions.
+  
+- **Help draft commit messages and documentation**, including this README.  
+
+AI served as a helpful assistant throughout the project to improve productivity and code quality.
+
+
