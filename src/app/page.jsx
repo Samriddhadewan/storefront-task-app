@@ -41,6 +41,12 @@ export default function ProductsPage() {
           value={searchText}
           onChange={handleSearch}
         />
+        <button
+          className="bg-[#592d02] text-white px-8 py-2 m-1.5 rounded hover:scale-105 transition-all cursor-pointer"
+          type="submit"
+        >
+          Search
+        </button>
       </div>
 
       {/* products section here */}

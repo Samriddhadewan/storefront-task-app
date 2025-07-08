@@ -94,7 +94,7 @@ export default function CartPage() {
               <div className="flex items-center gap-2">
                 <input
                   type="number"
-                  min={1}
+                  min={item.minimumOrderQuantity}
                   value={item.quantity}
                   onChange={(e) =>
                     handleQuantityChange(item.id, e.target.value)
