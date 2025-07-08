@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
@@ -12,7 +12,7 @@ export default function Navbar() {
           href="/"
           className="text-xl font-semibold tracking-wide text-[#592D02]"
         >
-          Dhoonki Mini
+          Dhoonki Mart
         </Link>
       </div>
       <Link href="/cart">

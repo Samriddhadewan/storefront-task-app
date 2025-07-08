@@ -5,17 +5,16 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/app/context/CartContext";
-import toast from 'react-hot-toast'; 
-
+import toast from "react-hot-toast";
 
 export default function ProductDetailsPage({ params }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-    const [isInCart, setIsInCart] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
   const unwrappedParams = React.use(params);
   const id = unwrappedParams.id;
-  const {addToCart} = useCart();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     setLoading(true);
@@ -24,7 +23,6 @@ export default function ProductDetailsPage({ params }) {
     fetch(`https://dummyjson.com/products/${id}`)
       .then(async (res) => {
         if (!res.ok) {
-          
           throw new Error(`Product not found (status ${res.status})`);
         }
         const data = await res.json();
@@ -46,7 +44,7 @@ export default function ProductDetailsPage({ params }) {
       <div className="text-center mt-20 text-red-600">
         <h2 className="text-2xl font-bold mb-4">Product Not Found</h2>
         <p>{error}</p>
-        
+
         <a href="/" className="text-blue-600 underline mt-4 inline-block">
           Go back to Home
         </a>
@@ -79,17 +77,15 @@ export default function ProductDetailsPage({ params }) {
 
   const finalPrice = (price - price * (discountPercentage / 100)).toFixed(2);
 
-  
   const handleAddToCart = () => {
     addToCart(product, minimumOrderQuantity);
     setIsInCart(true);
-    toast.success("Product added to the cart")
+    toast.success("Product added to the cart");
   };
 
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white rounded-md shadow-md my-10">
       <div className="flex flex-col md:flex-row gap-8">
-        
         <div className="flex-1">
           <Image
             src={images[0] || thumbnail}
@@ -113,7 +109,6 @@ export default function ProductDetailsPage({ params }) {
           </div>
         </div>
 
-      
         <div className="flex-1 flex flex-col justify-between">
           <div>
             <h1 className="text-3xl font-bold mb-2">{title}</h1>
@@ -224,7 +219,6 @@ export default function ProductDetailsPage({ params }) {
           <button
             className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-300"
             onClick={handleAddToCart}
-            
           >
             Add to Cart - ${finalPrice}
           </button>
