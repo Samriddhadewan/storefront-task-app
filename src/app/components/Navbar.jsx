@@ -1,7 +1,17 @@
+
+'use client'
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getTotalCartQuantity } from "../utils/cart";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
+  const {totalQuantity} = useCart();
+
+
+
+
   return (
     <div className="mx-auto flex justify-between items-center bg-[#F8F5E8] px-5 sm:px-10 md:px-20 lg:px-40 py-6 shadow-md rounded-xl">
       <div>
@@ -21,7 +31,7 @@ export default function Navbar() {
           alt="Cart Icon"
         />
         <p className="absolute right-[-6px] bottom-[-6px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px] font-bold">
-          {0}
+          {totalQuantity}
         </p>
       </div>
       </Link>

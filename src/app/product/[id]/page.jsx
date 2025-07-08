@@ -4,22 +4,26 @@ import Image from "next/image";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { addToCart } from "@/app/utils/cart";
+import { useCart } from "@/app/context/CartContext";
 
 export default function ProductDetailsPage({ params }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+    const [isInCart, setIsInCart] = useState(false);
   const unwrappedParams = React.use(params);
   const id = unwrappedParams.id;
+  const {addToCart} = useCart();
 
-   useEffect(() => {
+  useEffect(() => {
     setLoading(true);
     setError(null);
 
     fetch(`https://dummyjson.com/products/${id}`)
       .then(async (res) => {
         if (!res.ok) {
-          // If response not OK (e.g. 404), throw an error
+          
           throw new Error(`Product not found (status ${res.status})`);
         }
         const data = await res.json();
@@ -36,18 +40,17 @@ export default function ProductDetailsPage({ params }) {
 
   if (loading) return <LoadingSpinner />;
 
-    if (error)
+  if (error)
     return (
       <div className="text-center mt-20 text-red-600">
         <h2 className="text-2xl font-bold mb-4">Product Not Found</h2>
         <p>{error}</p>
-        {/* Optional: add a link back to homepage */}
+        
         <a href="/" className="text-blue-600 underline mt-4 inline-block">
           Go back to Home
         </a>
       </div>
     );
-
 
   const {
     title,
@@ -64,7 +67,7 @@ export default function ProductDetailsPage({ params }) {
     shippingInformation,
     warrantyInformation,
     sku,
-    dimensions = {},    // default empty object
+    dimensions = {},
     weight,
     images = [],
     thumbnail,
@@ -75,10 +78,17 @@ export default function ProductDetailsPage({ params }) {
 
   const finalPrice = (price - price * (discountPercentage / 100)).toFixed(2);
 
+  
+  const handleAddToCart = () => {
+    addToCart(product, minimumOrderQuantity);
+    setIsInCart(true);
+    alert("Product added to cart!");
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white rounded-md shadow-md my-10">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Left: Product Images */}
+        
         <div className="flex-1">
           <Image
             src={images[0] || thumbnail}
@@ -102,7 +112,7 @@ export default function ProductDetailsPage({ params }) {
           </div>
         </div>
 
-        {/* Right: Product Info */}
+      
         <div className="flex-1 flex flex-col justify-between">
           <div>
             <h1 className="text-3xl font-bold mb-2">{title}</h1>
@@ -116,9 +126,13 @@ export default function ProductDetailsPage({ params }) {
             <p className="mb-4 text-gray-800">{description}</p>
 
             <div className="flex items-center gap-3 mb-4">
-              <p className="text-2xl font-semibold text-red-600">${finalPrice}</p>
+              <p className="text-2xl font-semibold text-red-600">
+                ${finalPrice}
+              </p>
               <p className="line-through text-gray-400">${price.toFixed(2)}</p>
-              <p className="text-green-600 font-semibold">{discountPercentage}% OFF</p>
+              <p className="text-green-600 font-semibold">
+                {discountPercentage}% OFF
+              </p>
             </div>
 
             <p className="mb-1">
@@ -156,10 +170,11 @@ export default function ProductDetailsPage({ params }) {
               <h3 className="font-semibold mb-2">Product Details:</h3>
               <ul className="list-disc list-inside text-gray-700">
                 <li>
-                  Dimensions: {dimensions.width ?? "-"}cm (W) × {dimensions.height ?? "-"}cm (H) ×{" "}
-                  {dimensions.depth ?? "-"}cm (D)
+                  Dimensions: {dimensions.width ?? "-"}cm (W) ×{" "}
+                  {dimensions.height ?? "-"}cm (H) × {dimensions.depth ?? "-"}cm
+                  (D)
                 </li>
-                <li>Weight: {weight ?? "-" }g</li>
+                <li>Weight: {weight ?? "-"}g</li>
                 <li>Return Policy: {returnPolicy ?? "-"}</li>
                 <li>Shipping Info: {shippingInformation ?? "-"}</li>
                 <li>Warranty: {warrantyInformation ?? "-"}</li>
@@ -184,14 +199,18 @@ export default function ProductDetailsPage({ params }) {
 
             {/* Reviews */}
             <div>
-              <h3 className="font-semibold mb-3">Reviews ({reviews.length}):</h3>
+              <h3 className="font-semibold mb-3">
+                Reviews ({reviews.length}):
+              </h3>
               <ul className="space-y-3 max-h-48 overflow-y-auto">
                 {reviews.map((review, i) => (
                   <li
                     key={i}
                     className="border border-gray-300 p-3 rounded-md bg-gray-50"
                   >
-                    <p className="font-semibold">{review.user || "Anonymous"}</p>
+                    <p className="font-semibold">
+                      {review.user || "Anonymous"}
+                    </p>
                     <p className="text-yellow-500">{review.rating} ⭐</p>
                     <p className="text-gray-700">{review.comment}</p>
                   </li>
@@ -203,11 +222,14 @@ export default function ProductDetailsPage({ params }) {
           {/* Add to Cart Button */}
           <button
             className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-300"
-            onClick={() => alert("Add to cart functionality goes here")}
+            onClick={handleAddToCart}
           >
             Add to Cart - ${finalPrice}
           </button>
-          <Link href="/cart" className="mt-2 flex justify-center bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-md transition duration-300 ">
+          <Link
+            href="/cart"
+            className="mt-2 flex justify-center bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-md transition duration-300 "
+          >
             <p className=" inline-block">Buy Now</p>
           </Link>
         </div>
