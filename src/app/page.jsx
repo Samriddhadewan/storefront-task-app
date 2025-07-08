@@ -12,7 +12,6 @@ export default function ProductsPage() {
       .then(data => setProducts(data.products))
   },[])
 
-  console.log(products)
 
   return (
     <div className="my-12 max-w-[1140px] mx-auto">
