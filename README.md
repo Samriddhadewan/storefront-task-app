@@ -50,3 +50,14 @@ During the development of this storefront, I leveraged AI tools to:
 AI served as a helpful assistant throughout the project to improve productivity and code quality.
 
 
+## 🛠️ Technologies Used
+
+- **Next.js** – React framework for server-side rendering and routing  
+- **React** – For building interactive UI components  
+- **Tailwind CSS** – Utility-first CSS framework for styling  
+- **LocalStorage API** – To persist cart data across sessions  
+- **React Context API** – For managing global cart state  
+- **SweetAlert2** – For stylish confirmation alerts  
+- **React Hot Toast** – For toast notifications  
+- **Vercel** – For seamless deployment  
+- **DummyJSON API** – Source of product data
