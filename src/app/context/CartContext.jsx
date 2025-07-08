@@ -43,7 +43,10 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const clearAll = () => setCartItems([]);
+  const clearAll = () => {
+  setCartItems([]);
+  localStorage.removeItem("cart");
+};
 
   return (
     <CartContext.Provider

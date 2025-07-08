@@ -14,7 +14,7 @@ export default function ProductDetailsPage({ params }) {
   const [isInCart, setIsInCart] = useState(false);
   const unwrappedParams = React.use(params);
   const id = unwrappedParams.id;
-  const [mainImage, setMainImage]= useState("");
+  const [mainImage, setMainImage] = useState("");
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function ProductDetailsPage({ params }) {
         }
         const data = await res.json();
         setProduct(data);
-        setMainImage(data.images?.[0] || data.thumbnail)
+        setMainImage(data.images?.[0] || data.thumbnail);
       })
       .catch((err) => {
         setError(err.message || "Failed to fetch product");
@@ -71,7 +71,6 @@ export default function ProductDetailsPage({ params }) {
     dimensions = {},
     weight,
     images = [],
-    thumbnail,
     meta = {},
     tags = [],
     reviews = [],
@@ -84,6 +83,11 @@ export default function ProductDetailsPage({ params }) {
     setIsInCart(true);
     toast.success("Product added to the cart");
   };
+
+  const handleBuyNow = ()=>{
+    addToCart(product, minimumOrderQuantity);
+    setIsInCart(true);
+  }
 
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white rounded-md shadow-md my-10">
@@ -105,7 +109,7 @@ export default function ProductDetailsPage({ params }) {
                 alt={`${title} ${i + 1}`}
                 width={60}
                 height={60}
-                onClick={()=> setMainImage(imgUrl)}
+                onClick={() => setMainImage(imgUrl)}
                 className="rounded-md border border-gray-300 cursor-pointer object-contain"
               />
             ))}
@@ -156,7 +160,7 @@ export default function ProductDetailsPage({ params }) {
               Stock: <span className="font-semibold">{stock}</span>
             </p>
 
-            <p className="mb-1 text-red-500 font-semibold">
+            <p className="mb-1 underline text-red-500 font-semibold">
               Minimum Order Quantity:{" "}
               <span className="font-semibold">{minimumOrderQuantity}</span>
             </p>
@@ -226,6 +230,7 @@ export default function ProductDetailsPage({ params }) {
             Add to Cart - ${finalPrice}
           </button>
           <Link
+            onClick={handleBuyNow}
             href="/cart"
             className="mt-2 flex justify-center bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-md transition duration-300 "
           >

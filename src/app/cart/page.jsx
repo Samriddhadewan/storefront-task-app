@@ -2,11 +2,14 @@
 
 import React from "react";
 import { useCart } from "../context/CartContext";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
-  const { cartItems, updateQty, removeFromCart } = useCart();
-
+  const { cartItems, updateQty, removeFromCart, clearAll } = useCart();
+  const router = useRouter();
+  
   const handleQuantityChange = (id, quantity) => {
     const newQuantity = parseInt(quantity);
     if (!isNaN(newQuantity) && newQuantity >= 1) {
@@ -16,15 +19,41 @@ export default function CartPage() {
 
   const handleRemove = (id) => {
     removeFromCart(id);
-    toast.success("Product removed from the cart")
+    toast.success("Product removed from the cart");
   };
 
-
-  // total price calculation 
+  // total price calculation
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  // navigate to the home
+  const goHome = () => {
+    router.push("/");
+  };
+
+  const handlePurchase = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are You sure you want to purchase!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes,i wanna purchase",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clearAll();
+        goHome();
+        Swal.fire({
+          title: "Purchased!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-4">
@@ -34,7 +63,6 @@ export default function CartPage() {
         <div className="min-h-[70vh] flex justify-center items-center">
           <h1 className="text-4xl font-semibold">You cart is empty</h1>
         </div>
-      
       ) : (
         <>
           {cartItems.map((item) => (
@@ -53,9 +81,13 @@ export default function CartPage() {
 
               {/* Info */}
               <div className="flex-1">
-                <h2 className="font-semibold text-sm sm:text-lg">{item.title}</h2>
+                <h2 className="font-semibold text-sm sm:text-lg">
+                  {item.title}
+                </h2>
                 <p className="text-sm sm:text-lg">Price: ${item.price}</p>
-                <p className="text-sm sm:text-lg">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                <p className="text-sm sm:text-lg">
+                  Total: ${(item.price * item.quantity).toFixed(2)}
+                </p>
               </div>
 
               {/* Qty & Remove */}
@@ -64,7 +96,9 @@ export default function CartPage() {
                   type="number"
                   min={1}
                   value={item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                  onChange={(e) =>
+                    handleQuantityChange(item.id, e.target.value)
+                  }
                   className="w-16 border p-1 rounded"
                 />
                 <button onClick={() => handleRemove(item.id)}>
@@ -82,6 +116,12 @@ export default function CartPage() {
             <h2 className="text-xl font-semibold">
               Total Cart Value: ${totalPrice.toFixed(2)}
             </h2>
+            <button
+              onClick={handlePurchase}
+              className="btn bg-[#592D02] text-white py-2 px-4 rounded-lg mt-2 cursor-pointer"
+            >
+              Purchase
+            </button>
           </div>
         </>
       )}
