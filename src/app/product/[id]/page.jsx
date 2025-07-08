@@ -4,7 +4,6 @@ import Image from "next/image";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { addToCart } from "@/app/utils/cart";
 import { useCart } from "@/app/context/CartContext";
 
 export default function ProductDetailsPage({ params }) {
