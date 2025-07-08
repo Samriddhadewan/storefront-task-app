@@ -14,6 +14,7 @@ export default function ProductDetailsPage({ params }) {
   const [isInCart, setIsInCart] = useState(false);
   const unwrappedParams = React.use(params);
   const id = unwrappedParams.id;
+  const [mainImage, setMainImage]= useState("");
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function ProductDetailsPage({ params }) {
         }
         const data = await res.json();
         setProduct(data);
+        setMainImage(data.images?.[0] || data.thumbnail)
       })
       .catch((err) => {
         setError(err.message || "Failed to fetch product");
@@ -88,11 +90,11 @@ export default function ProductDetailsPage({ params }) {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="flex-1">
           <Image
-            src={images[0] || thumbnail}
+            src={mainImage}
             alt={title}
             width={400}
             height={400}
-            className="rounded-md object-contain"
+            className="rounded-md border border-gray-300 object-contain"
             priority
           />
           <div className="flex gap-3 mt-4 overflow-x-auto">
@@ -103,7 +105,8 @@ export default function ProductDetailsPage({ params }) {
                 alt={`${title} ${i + 1}`}
                 width={60}
                 height={60}
-                className="rounded-md border cursor-pointer object-contain"
+                onClick={()=> setMainImage(imgUrl)}
+                className="rounded-md border border-gray-300 cursor-pointer object-contain"
               />
             ))}
           </div>
