@@ -111,7 +111,7 @@ export default function ProductDetailsPage({ params }) {
 
         <div className="flex-1 flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">{title}</h1>
+            <h1 className="text-3xl text-[#592D02] font-bold mb-2">{title}</h1>
             <p className="text-sm text-gray-600 mb-1">
               Brand: <span className="font-medium">{brand}</span>
             </p>
@@ -153,7 +153,7 @@ export default function ProductDetailsPage({ params }) {
               Stock: <span className="font-semibold">{stock}</span>
             </p>
 
-            <p className="mb-1">
+            <p className="mb-1 text-red-500 font-semibold">
               Minimum Order Quantity:{" "}
               <span className="font-semibold">{minimumOrderQuantity}</span>
             </p>
@@ -217,7 +217,7 @@ export default function ProductDetailsPage({ params }) {
 
           {/* Add to Cart Button */}
           <button
-            className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-300"
+            className="mt-8 bg-[#592D02]  text-white font-semibold py-3 rounded-md transition duration-300"
             onClick={handleAddToCart}
           >
             Add to Cart - ${finalPrice}

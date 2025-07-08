@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 export default function ProductCard({ product }) {
   const {
@@ -17,7 +18,7 @@ export default function ProductCard({ product }) {
   return (
     <Link href={`/product/${id}`}>
     <div className="border border-gray-300 rounded-lg cursor-pointer overflow-hidden shadow-sm hover:shadow-lg transition p-5">
-      <img src={thumbnail} alt={title} className="w-full  h-52 object-contain rounded" />
+      <img src={thumbnail} alt={title} className="w-full  h-52 object-contain bg-[#F3F3F3] hover:scale-110 transition ease-in-out rounded-xl" />
       
       <div className="mt-3">
         <h2 className="text-lg font-semibold line-clamp-2">{title}</h2>
@@ -26,18 +27,18 @@ export default function ProductCard({ product }) {
         <div className="flex items-center gap-2 mt-1">
           <span className="text-green-700 font-bold">${finalPrice}</span>
           {discountPercentage > 0 && (
-            <span className="line-through text-gray-400  text-sm">${price}</span>
+             <span className="line-through text-gray-400  text-sm">${price}</span>
           )}
         </div>
 
         <p className="text-sm text-yellow-500">⭐ {rating.toFixed(1)}</p>
 
-        <p className={`text-sm mt-1 ${stock > 0 ? "text-green-600" : "text-red-500"}`}>
+        <p className={`text-sm font-semibold mt-1 ${stock > 0 ? "text-green-600" : "text-red-500"}`}>
           {stock > 0 ? "In Stock" : "Out of Stock"}
         </p>
 
-          <button className="mt-3 w-full bg-[#592D02] text-white py-1 rounded cursor-pointer">
-            View Details
+          <button className="mt-3 justify-center w-full flex items-center gap-2 bg-[#592D02] text-white py-2 rounded cursor-pointer">
+             <MdOutlineShoppingCart className="text-2xl" /> View Details
           </button>
         
       </div>

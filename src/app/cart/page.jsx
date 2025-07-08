@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useCart } from "../context/CartContext";
+import toast from "react-hot-toast"
 
 export default function CartPage() {
   const { cartItems, updateQty, removeFromCart } = useCart();
@@ -15,8 +16,11 @@ export default function CartPage() {
 
   const handleRemove = (id) => {
     removeFromCart(id);
+    toast.success("Product removed from the cart")
   };
 
+
+  // total price calculation 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -24,10 +28,13 @@ export default function CartPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Your Cart</h1>
 
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="min-h-[70vh] flex justify-center items-center">
+          <h1 className="text-4xl font-semibold">You cart is empty</h1>
+        </div>
+      
       ) : (
         <>
           {cartItems.map((item) => (
