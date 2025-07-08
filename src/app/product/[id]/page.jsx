@@ -5,6 +5,8 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/app/context/CartContext";
+import toast from 'react-hot-toast'; 
+
 
 export default function ProductDetailsPage({ params }) {
   const [product, setProduct] = useState(null);
@@ -81,7 +83,7 @@ export default function ProductDetailsPage({ params }) {
   const handleAddToCart = () => {
     addToCart(product, minimumOrderQuantity);
     setIsInCart(true);
-    alert("Product added to cart!");
+    toast.success("Product added to the cart")
   };
 
   return (
@@ -222,6 +224,7 @@ export default function ProductDetailsPage({ params }) {
           <button
             className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-300"
             onClick={handleAddToCart}
+            
           >
             Add to Cart - ${finalPrice}
           </button>
