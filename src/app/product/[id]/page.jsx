@@ -107,8 +107,8 @@ export default function ProductDetailsPage({ params }) {
                 key={i}
                 src={imgUrl}
                 alt={`${title} ${i + 1}`}
-                width={60}
-                height={60}
+                width={80}
+                height={80}
                 onClick={() => setMainImage(imgUrl)}
                 className="rounded-md border border-gray-300 cursor-pointer object-contain"
               />

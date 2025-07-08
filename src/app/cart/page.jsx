@@ -48,7 +48,7 @@ export default function CartPage() {
         goHome();
         Swal.fire({
           title: "Purchased!",
-          text: "Your file has been deleted.",
+          text: "Successfully Purchased The Product",
           icon: "success",
         });
       }
